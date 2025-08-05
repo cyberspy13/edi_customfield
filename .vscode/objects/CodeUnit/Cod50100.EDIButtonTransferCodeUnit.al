@@ -7,10 +7,5 @@ codeunit 50100 EDIButtonTransferCodeUnit
     begin
         Customer.Get(SalesHeader."Sell-to Customer No.");
         SalesHeader."Send EDI" := Customer."Send EDI Documents";
-
-        if SalesHeader."Send EDI" = false then
-        begin
-            Message('Please Provide the reason of change for EDI documents.');
-        end;
     end;
 }

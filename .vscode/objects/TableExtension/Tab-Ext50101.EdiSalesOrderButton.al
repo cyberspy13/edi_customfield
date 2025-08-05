@@ -18,6 +18,10 @@ tableextension 50101 EdiSalesOrderButton extends "Sales Header"
                         Rec."Send EDI" := true;
                     end;
                 end;
+
+                if Rec."Send EDI" = true then begin
+                    Rec."EDI Change Reason" := '';
+                end;
             end;
         }
         field(50101; "EDI Change Reason"; Text[250])

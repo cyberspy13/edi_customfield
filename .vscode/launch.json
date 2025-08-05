@@ -16,7 +16,7 @@
         // }
 
         {
-             "type": "al",
+            "type": "al",
             "request": "launch",
             "name":  "Development", 
             "environmentType": "Sandbox",
