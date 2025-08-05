@@ -7,19 +7,8 @@ tableextension 50101 EdiSalesOrderButton extends "Sales Header"
             Caption = 'Send EDI';
             DataClassification = CustomerContent;
             trigger OnValidate()
-            var
-                SalesHeader: Record "Sales Header";
             begin
-                if Rec."Send EDI" = false then begin
-                    if Rec."EDI Change Reason" <> '' then begin
-                        Rec."Send EDI" := false;
-                    end else begin
-                        Message('Please Provide the reason of change for EDI documents.');
-                        Rec."Send EDI" := true;
-                    end;
-                end;
-
-                if Rec."Send EDI" = true then begin
+                if (Rec."EDI Change Reason" <> '') and (Rec."Send EDI" = true) then begin
                     Rec."EDI Change Reason" := '';
                 end;
             end;
@@ -30,9 +19,10 @@ tableextension 50101 EdiSalesOrderButton extends "Sales Header"
             DataClassification = CustomerContent;
             trigger OnValidate()
             begin
-                if (Rec."EDI Change Reason" <> '') and (Rec."Send EDI" = true) then begin
-                    Message('EDI status changed. Reason: %1', Rec."EDI Change Reason");
-                    Rec."Send EDI" := false;
+                if (Rec."Send EDI" = true) and (Rec."EDI Change Reason" <> '') then begin
+                    Message('Please set the EDI button to "false" mode before changing the reason.');
+                    Rec."Send EDI" := true;
+                    Rec."EDI Change Reason" := '';
                 end;
             end;
         }
